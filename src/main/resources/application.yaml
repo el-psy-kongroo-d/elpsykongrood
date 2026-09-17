@@ -1,0 +1,58 @@
+app:
+  site-url: ${SITE_URL:http://localhost:8080}
+  display-zone: Asia/Seoul
+
+spring:
+  application:
+    name: elpsykongrood
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+
+  sql:
+    init:
+      mode: never
+
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing: false
+
+  messages:
+    fallback-to-system-locale: false
+
+  web:
+    locale: ko
+    locale-resolver: fixed
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+  max-http-request-header-size: 16KB
+  tomcat:
+    max-http-form-post-size: 16KB

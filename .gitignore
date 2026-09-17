@@ -1,0 +1,50 @@
+# Maven
+/target/
+/out/
+/build/
+*.class
+
+# Local settings and secrets
+.env
+.env.*
+.envrc
+.direnv/
+*.pem
+*.key
+*.p12
+*.pfx
+*.dump
+*.sql.gz
+/backups/
+/src/main/resources/application-local.properties
+/src/main/resources/application-local.yaml
+/src/main/resources/application-local.yml
+
+# Server-managed personal documents; include only sample PDFs
+/documents/**
+!/documents/resume.pdf
+!/documents/portfolio.pdf
+!/documents/projects/
+!/documents/projects/demo-project/
+!/documents/projects/demo-project/portfolio.pdf
+
+# Editor and OS files
+.idea/
+.vscode/
+.classpath
+.project
+.settings/
+*.iml
+.DS_Store
+._*
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Logs
+*.log
+/logs/
+hs_err_pid*
+replay_pid*
+*.hprof
