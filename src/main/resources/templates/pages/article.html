@@ -1,0 +1,12 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: page(${article.title} + ' · elpsykongrood', ~{::section}, 'articles')}">
+<body>
+<section>
+    <a class="backLink" th:href="@{/articles}" th:text="#{article.back}"></a>
+    <article>
+        <header class="articleHeader"><h1 th:text="${article.title}"></h1><div th:replace="~{fragments/articles :: metadata(${article}, true)}"></div></header>
+        <div class="prose" th:utext="${article.content}"></div>
+    </article>
+</section>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: page('elpsykongrood', ~{::section}, 'home')}">
+<body>
+<section>
+    <section aria-labelledby="recent-title">
+    <div class="sectionHeading"><h1 id="recent-title" th:text="#{home.recent.title}"></h1><a th:href="@{/articles}" th:text="#{home.articles.link}"></a></div>
+    <ul th:replace="~{fragments/articles :: list(${articles})}"></ul>
+    <p th:if="${#lists.isEmpty(articles)}" class="empty" th:text="#{articles.empty}"></p>
+    </section>
+</section>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="metadata(article, showViews)" class="meta">
+    <time th:datetime="${article.date}" th:text="${@dateTimeUtils.format(article.date, 'yyyy-MM-dd')}"></time>
+    <span th:if="${showViews}" th:text="#{article.views(${article.views})}"></span>
+</div>
+<ul th:fragment="list(articles)" class="recentArticles">
+    <li th:each="article : ${articles}" class="recentArticle">
+        <div class="recentArticleHeading">
+            <h2 class="recentArticleTitle"><a th:href="@{/articles/{slug}(slug=${article.slug})}" th:text="${article.title}"></a></h2>
+            <time class="recentArticleDate" th:datetime="${article.date}" th:text="${@dateTimeUtils.format(article.date, 'yyyy-MM-dd')}"></time>
+        </div>
+        <p class="recentArticleExcerpt" th:if="${article.excerpt != null and !#strings.isEmpty(article.excerpt)}" th:text="${article.excerpt}"></p>
+    </li>
+</ul>
+<table th:fragment="table(articles)" class="articleTable">
+    <thead><tr><th scope="col" th:text="#{articles.table.title}"></th><th scope="col" class="articleTableDate" th:text="#{articles.table.date}"></th><th scope="col" class="articleTableViews" th:text="#{articles.table.views}"></th></tr></thead>
+    <tbody>
+        <tr th:each="article : ${articles}">
+            <td class="articleTableTitle"><a th:href="@{/articles/{slug}(slug=${article.slug})}" th:text="${article.title}"></a></td>
+            <td class="articleTableDate"><time th:datetime="${article.date}" th:text="${@dateTimeUtils.format(article.date, 'yyyy-MM-dd')}"></time></td>
+            <td class="articleTableViews" th:text="${article.views}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

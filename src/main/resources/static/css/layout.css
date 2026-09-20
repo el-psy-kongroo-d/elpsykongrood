@@ -1,0 +1,143 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter) var(--space-8);
+}
+
+.header {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 58px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--hairline);
+  background: var(--paper);
+}
+
+.site,
+.site:visited {
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: var(--font-body);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+}
+
+.site:hover {
+  text-decoration: underline;
+}
+
+.nav {
+  --nav-indicator-width: 12px;
+  --nav-indicator-offset: 8px;
+  --nav-gap: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--nav-gap);
+}
+
+.nav a,
+.nav a:visited {
+  position: relative;
+  color: var(--muted);
+  font-size: var(--font-small);
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.nav a + a::before {
+  content: "·";
+  position: absolute;
+  left: calc(var(--nav-gap) / -2);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--muted);
+  font-size: var(--font-small);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.nav a[aria-current='page'] {
+  font-weight: 700;
+  color: var(--link);
+}
+
+.nav a[aria-current='page']::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: var(--nav-indicator-offset);
+  width: var(--nav-indicator-width);
+  height: 1px;
+  background: var(--accent);
+}
+
+.main {
+  flex: 1;
+  margin-top: var(--space-7);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.footer {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
+  font-size: var(--font-small);
+}
+
+.footer a,
+.footer a:visited {
+  color: var(--muted);
+}
+
+.footer a:hover {
+  color: var(--link);
+}
+
+@media (max-width: 420px) {
+  .nav {
+    --nav-gap: var(--space-3);
+  }
+}
+
+.skip { position: absolute; top: -80px; }
+.skip:focus { top: var(--space-2); z-index: 20; background: var(--paper); padding: var(--space-2); }
+@media (max-width: 420px) {
+  .page { --page-gutter: var(--space-4); }
+  .header { gap: var(--space-2); flex-wrap: wrap; }
+  .main { margin-top: var(--space-6); }
+}
+
+/* The active route reads as a small indicator on an instrument panel. */
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 36px;
+  height: 1px;
+  background: var(--accent);
+}

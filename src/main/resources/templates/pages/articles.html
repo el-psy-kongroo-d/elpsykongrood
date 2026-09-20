@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: page(#{nav.articles} + ' · elpsykongrood', ~{::section}, 'articles')}">
+<body>
+<section th:with="q=${param.q != null ? param.q[0].strip() : ''}, sort=${param.sort != null and param.sort[0] == 'asc' ? 'asc' : 'desc'}">
+    <section aria-labelledby="articles-results-title">
+    <div class="sectionHeading"><h1 id="articles-results-title" th:text="${q.isBlank()} ? #{articles.title} : #{articles.results.title}"></h1><span class="sectionAside" role="status" th:text="#{articles.count(${results.totalElements})}"></span></div>
+    <form th:action="@{/articles}" method="get" class="filters">
+        <div class="searchControl">
+        <label><span class="visuallyHidden" th:text="#{articles.search.label}"></span><input type="search" name="q" th:value="${q}" th:placeholder="#{articles.search.placeholder}"></label>
+        <button type="submit" th:text="#{articles.search.submit}"></button>
+        </div>
+        <span class="filterSeparator" aria-hidden="true">·</span>
+        <label class="sortFilter">
+            <span class="visuallyHidden" th:text="#{articles.sort.label}"></span>
+            <select name="sort" onchange="this.form.requestSubmit()">
+                <option value="desc" th:selected="${sort == 'desc'}" th:text="#{articles.sort.desc}"></option>
+                <option value="asc" th:selected="${sort == 'asc'}" th:text="#{articles.sort.asc}"></option>
+            </select>
+        </label>
+    </form>
+    <th:block th:if="${!results.empty}"><table th:replace="~{fragments/articles :: table(${results.content})}"></table></th:block>
+    <p th:if="${results.empty}" class="empty" th:text="${results.totalElements > 0} ? #{articles.pagination.empty} : (${q.isBlank()} ? #{articles.empty} : #{articles.noResults})"></p>
+    <nav class="pagination" th:if="${results.totalPages > 0}" th:aria-label="#{articles.pagination.label}">
+        <a th:if="${results.hasPrevious()}" th:href="@{/articles(q=${q},sort=${sort},page=${results.number >= results.totalPages ? results.totalPages : results.number})}" th:text="#{articles.pagination.previous}">이전</a>
+        <span th:unless="${results.hasPrevious()}" class="paginationDisabled" aria-disabled="true" th:text="#{articles.pagination.previous}"></span>
+        <span class="paginationStatus" th:text="${results.number < results.totalPages} ? #{articles.pagination.status(${results.number + 1}, ${results.totalPages})} : #{articles.pagination.current(${results.number + 1})}"></span>
+        <a th:if="${results.hasNext()}" th:href="@{/articles(q=${q},sort=${sort},page=${results.number + 2})}" th:text="#{articles.pagination.next}">다음</a>
+        <span th:unless="${results.hasNext()}" class="paginationDisabled" aria-disabled="true" th:text="#{articles.pagination.next}"></span>
+    </nav>
+    </section>
+</section>
+</body>
+</html>

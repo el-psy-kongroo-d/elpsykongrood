@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: page(${#messages.msgOrNull('error.' + status + '.title') ?: #messages.msg('error.default.title')}, ~{::section}, '')}">
+<body>
+<section class="errorPage" aria-labelledby="error-title">
+    <div class="errorStatus"><span class="errorCode" th:text="${status}"></span></div>
+    <div class="errorBody">
+        <h1 id="error-title" th:text="${#messages.msgOrNull('error.' + status + '.title') ?: #messages.msg('error.default.title')}"></h1>
+        <p th:text="${#messages.msgOrNull('error.' + status + '.description') ?: #messages.msg('error.default.description')}"></p>
+        <nav class="errorLinks" th:aria-label="#{error.links.label}">
+            <a th:href="@{/}" th:text="#{error.links.home}"></a>
+            <span aria-hidden="true">·</span>
+            <a th:href="@{/articles}" th:text="#{error.links.articles}"></a>
+        </nav>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header(activePage)" class="header">
+    <a class="site" th:href="@{/}">elpsykongrood</a>
+    <nav class="nav" th:aria-label="#{nav.label}">
+        <a th:href="@{/}" th:attr="aria-current=${activePage == 'home' ? 'page' : null}" th:text="#{nav.home}">홈</a>
+        <a th:href="@{/articles}" th:attr="aria-current=${activePage == 'articles' ? 'page' : null}" th:text="#{nav.articles}">글</a>
+    </nav>
+</header>
+</body>
+</html>
