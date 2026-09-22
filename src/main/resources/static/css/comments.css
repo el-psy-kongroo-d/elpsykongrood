@@ -1,0 +1,25 @@
+.comments { --comment-date-size: 0.6875rem; margin-top: var(--space-6); }
+.comments > .sectionHeading { margin-bottom: 0; }
+.commentList { list-style: none; margin: 0; padding: 0; }
+.comment { padding-block: var(--space-2); border-bottom: 1px dotted var(--row-border); }
+.comment:last-child { border-bottom: 0; }
+.commentHeading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--space-1) var(--space-3); line-height: 1.5; }
+.commentHeading strong { color: var(--text-soft); font-size: var(--font-small); font-weight: 600; overflow-wrap: anywhere; }
+.commentHeading time { color: var(--muted); font-size: var(--comment-date-size); white-space: nowrap; }
+.comment p { margin: var(--space-1) 0 0; white-space: pre-wrap; color: var(--text); font-size: var(--font-body); line-height: 1.65; overflow-wrap: anywhere; }
+.commentForm { --control-height: 2rem; --comment-hint-size: 0.6875rem; display: grid; gap: var(--space-2); margin-top: 0; padding-top: var(--space-3); border-top: 1px solid var(--section-border); }
+.commentFormTitle { margin: 0; font-size: var(--font-small); font-weight: 600; color: var(--navy); }
+.commentForm label { gap: var(--space-1); }
+.commentFieldHeading { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-1); }
+.commentFieldHeading > :first-child { flex-shrink: 0; color: var(--text); font-size: var(--font-small); font-weight: 600; }
+.commentFieldHint { display: inline-flex; align-items: baseline; gap: var(--space-1); color: var(--muted); font-size: var(--comment-hint-size); font-weight: 400; line-height: 1.5; }
+.commentFieldHint > [aria-hidden] { color: var(--muted); }
+.commentForm .commentFieldError { color: var(--error); font-size: var(--comment-hint-size); line-height: 1.5; }
+.commentForm [aria-invalid="true"] { border-color: var(--error); }
+.commentForm input, .commentForm textarea { padding: var(--space-1) var(--space-2); }
+.commentForm textarea { min-height: 5rem; line-height: 1.6; }
+.commentFormActions { display: flex; justify-content: flex-end; }
+.commentForm button { margin-left: auto; flex-shrink: 0; padding: var(--space-1) var(--space-3); font-size: var(--font-small); }
+.notice { margin: var(--space-5) 0; padding: var(--space-3); border-left: 2px solid; background: var(--code-bg); }
+.notice[role="status"] { border-color: var(--success); color: var(--success); }
+.notice[role="alert"] { border-color: var(--error); color: var(--error); }

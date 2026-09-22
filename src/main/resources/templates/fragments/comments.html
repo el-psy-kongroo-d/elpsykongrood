@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="section" id="comments" class="comments" aria-labelledby="comments-title">
+    <div class="sectionHeading"><h2 id="comments-title" th:text="#{comments.title(${#lists.size(comments)})}"></h2></div>
+    <p th:if="${#lists.isEmpty(comments)}" class="meta" th:text="#{comments.empty}"></p>
+    <ul th:replace="~{fragments/comments :: list(${comments})}"></ul>
+    <p class="notice" th:if="${notice != null}" th:attr="role=${notice.type.name() == 'ERROR' ? 'alert' : 'status'}"
+       th:text="${#messages.msg(notice.key)}"></p>
+    <form th:replace="~{fragments/comments :: commentForm}"></form>
+</section>
+<ul th:fragment="list(comments)" class="commentList">
+    <li th:each="comment : ${comments}" class="comment">
+        <div class="commentHeading">
+            <strong th:text="${comment.nickname}"></strong>
+            <time class="meta" th:datetime="${comment.createdAt}" th:text="${@dateTimeUtils.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"></time>
+        </div>
+        <p th:text="${comment.content}"></p>
+    </li>
+</ul>
+<form th:fragment="commentForm" th:object="${form}" th:action="@{/articles/{slug}/comments(slug=${article.slug})}" method="post" class="commentForm">
+    <h3 class="commentFormTitle" th:text="#{comments.form.submit}"></h3>
+    <label>
+        <span class="commentFieldHeading">
+            <span th:text="#{comments.form.nickname}"></span>
+            <span class="commentFieldHint"><span aria-hidden="true">·</span><span id="nickname-limit" th:text="#{comments.form.nicknameHint}"></span></span>
+        </span>
+        <input th:field="*{nickname}" autocomplete="nickname" required maxlength="24"
+               th:attr="aria-invalid=${#fields.hasErrors('nickname')}, aria-describedby=${#fields.hasErrors('nickname') ? 'nickname-limit nickname-error' : 'nickname-limit'}">
+        <span id="nickname-error" class="commentFieldError" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></span>
+    </label>
+    <label>
+        <span class="commentFieldHeading">
+            <span th:text="#{comments.form.content}"></span>
+            <span class="commentFieldHint"><span aria-hidden="true">·</span><span id="comment-limit" th:text="#{comments.form.contentHint}"></span></span>
+        </span>
+        <textarea th:field="*{content}" required maxlength="1000" rows="3"
+                  th:attr="aria-invalid=${#fields.hasErrors('content')}, aria-describedby=${#fields.hasErrors('content') ? 'comment-limit content-error' : 'comment-limit'}"></textarea>
+        <span id="content-error" class="commentFieldError" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+    </label>
+    <div class="commentFormActions">
+        <button type="submit" th:text="#{comments.form.submit}"></button>
+    </div>
+</form>
+</body>
+</html>
