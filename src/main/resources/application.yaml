@@ -1,6 +1,11 @@
 app:
   site-url: ${SITE_URL:http://localhost:8080}
   display-zone: Asia/Seoul
+  documents:
+    directory: ${DOCUMENTS_DIRECTORY:./documents}
+    display-names:
+      resume: ${RESUME_DISPLAY_NAME:이력서.pdf}
+      portfolio: ${PORTFOLIO_DISPLAY_NAME:포트폴리오.pdf}
 
 spring:
   application:
