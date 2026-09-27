@@ -6,6 +6,7 @@
     <nav class="nav" th:aria-label="#{nav.label}">
         <a th:href="@{/}" th:attr="aria-current=${activePage == 'home' ? 'page' : null}" th:text="#{nav.home}">홈</a>
         <a th:href="@{/articles}" th:attr="aria-current=${activePage == 'articles' ? 'page' : null}" th:text="#{nav.articles}">글</a>
+        <a th:href="@{/projects}" th:attr="aria-current=${activePage == 'projects' ? 'page' : null}" th:text="#{nav.projects}">프로젝트</a>
     </nav>
 </header>
 </body>

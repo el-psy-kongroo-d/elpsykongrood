@@ -1,0 +1,105 @@
+.projectList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.projectItem {
+  --project-preview-width: 14rem;
+  --project-preview-border: #3b4033;
+  --project-action-height: 1.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--project-preview-width);
+  align-items: stretch;
+  gap: var(--space-6);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.projectContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.projectItemText { grid-template-columns: minmax(0, 1fr); }
+
+.projectHeading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.projectTitle {
+  margin: 0;
+  color: var(--navy);
+  font-family: var(--font-mono);
+  font-size: var(--font-heading);
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  line-height: var(--list-line-height);
+}
+
+.projectKind {
+  color: var(--muted);
+  font-size: var(--font-small);
+}
+
+.projectDescription {
+  margin: var(--space-3) 0 0;
+  color: var(--text-soft);
+  font-size: var(--font-body);
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.projectLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: var(--font-small);
+}
+
+.projectLink,
+.projectLink:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--project-action-height);
+  color: var(--text-soft);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.projectLink:hover,
+.projectLink:focus-visible { color: var(--link); text-decoration: underline; }
+
+.projectLinkSeparator { color: var(--muted); }
+
+.projectPreview { margin: 0; }
+
+.projectPreview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--project-preview-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+
+@media (max-width: 540px) {
+  .projectItem {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+  }
+  .projectPreview { grid-row: 1; }
+}
+
+@media (pointer: coarse) {
+  .projectItem { --project-action-height: 2.75rem; }
+}

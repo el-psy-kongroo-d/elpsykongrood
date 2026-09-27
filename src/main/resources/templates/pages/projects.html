@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: page(#{projects.title} + ' · elpsykongrood', ~{::section}, 'projects')}">
+<body>
+<section aria-labelledby="projects-title">
+    <div class="sectionHeading">
+        <h1 id="projects-title" th:text="#{projects.title}"></h1>
+    </div>
+    <ul class="projectList">
+        <li th:each="project : ${projects}">
+            <article class="projectItem" th:classappend="${#strings.isEmpty(project.previewImage)} ? 'projectItemText'" th:aria-labelledby="${'project-' + project.slug}">
+                <div class="projectContent">
+                    <div class="projectHeading">
+                        <h2 th:id="${'project-' + project.slug}" class="projectTitle" th:text="${project.title}"></h2>
+                        <span class="projectKind" th:if="${!#strings.isEmpty(project.kind)}" th:text="${project.kind}"></span>
+                    </div>
+                    <p class="projectDescription" th:text="${project.description}"></p>
+                    <nav class="projectLinks" th:if="${!#strings.isEmpty(project.websiteUrl) or !#strings.isEmpty(project.portfolioUrl)}" th:aria-label="#{projects.links.label(${project.title})}">
+                        <a class="projectLink" th:if="${!#strings.isEmpty(project.websiteUrl)}" th:href="@{${project.websiteUrl}}" th:text="#{projects.site.link}"></a>
+                        <span class="projectLinkSeparator" th:if="${!#strings.isEmpty(project.websiteUrl) and !#strings.isEmpty(project.portfolioUrl)}" aria-hidden="true">·</span>
+                        <a class="projectLink" th:if="${!#strings.isEmpty(project.portfolioUrl)}" th:href="@{${project.portfolioUrl}}" th:text="#{projects.portfolio.link}"></a>
+                    </nav>
+                </div>
+                <figure class="projectPreview" th:if="${!#strings.isEmpty(project.previewImage)}">
+                    <img th:src="@{${project.previewImage}}" th:alt="#{projects.preview(${project.title})}" width="640" height="400">
+                </figure>
+            </article>
+        </li>
+    </ul>
+    <p class="empty" th:if="${#lists.isEmpty(projects)}" th:text="#{projects.empty}"></p>
+</section>
+</body>
+</html>

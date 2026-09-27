@@ -23,7 +23,19 @@ ALTER TABLE comments DROP COLUMN IF EXISTS password_hash;
 CREATE INDEX IF NOT EXISTS comments_article_created_id_idx
     ON comments (article_slug, created_at, id);
 
+CREATE TABLE IF NOT EXISTS projects (
+    slug text PRIMARY KEY,
+    title text NOT NULL,
+    description text NOT NULL,
+    kind text,
+    website_url text,
+    portfolio_url text,
+    preview_image text,
+    display_order integer NOT NULL DEFAULT 0
+);
+
 ALTER TABLE articles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 
 COMMIT;
