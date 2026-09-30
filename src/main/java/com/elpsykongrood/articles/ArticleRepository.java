@@ -18,5 +18,11 @@ public interface ArticleRepository extends JpaRepository<Article, String> {
 
     Page<ArticlePayloads.Item> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
+    @Query("""
+            select a.slug, a.updatedAt
+            from Article a
+            order by a.slug
+            """)
+    List<ArticlePayloads.Location> findArticleLocations();
 
 }

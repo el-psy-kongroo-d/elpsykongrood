@@ -46,4 +46,7 @@ public class ArticleService {
         );
     }
 
+    public List<ArticlePayloads.Location> findArticleLocations() {
+        return articleRepository.findArticleLocations();
+    }
 }

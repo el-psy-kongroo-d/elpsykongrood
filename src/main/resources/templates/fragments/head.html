@@ -1,9 +1,53 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head(title, activePage)">
+<head th:fragment="head(title, activePage)"
+      th:with="isHome=${activePage == 'home'},
+               isProjects=${activePage == 'projects'},
+               isArticles=${activePage == 'articles'},
+               hasArticle=${article != null},
+               isArticleList=${isArticles and !hasArticle},
+               isSearch=${param.q != null and !param.q[0].isBlank()},
+               isAscending=${param.sort != null and param.sort[0] == 'asc'},
+               isValidPage=${isArticleList and results.number < (results.totalPages == 0 ? 1 : results.totalPages)},
+               descriptionKey=${isProjects ? 'projects.description' : (isArticleList ? 'articles.description' : 'home.description')},
+               description=${hasArticle and !#strings.isEmpty(article.excerpt)} ? ${article.excerpt} : ${#messages.msg(descriptionKey)},
+               indexable=${isHome or isProjects or (isArticles and hasArticle) or (isValidPage and !isSearch and !isAscending)},
+               listPath=${isArticleList and results.number > 0 ? '/articles?page=' + (results.number + 1) : '/articles'},
+               canonicalPath=${isHome ? '/' : (isProjects ? '/projects' : listPath)},
+               canonical=${!indexable ? null : (hasArticle ? @siteUrls.article(article.slug) : @siteUrls.url(canonicalPath))}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" th:content="${description}">
+    <meta name="robots" th:content="${indexable ? 'index, follow' : 'noindex, follow'}">
     <title th:text="${title}">elpsykongrood</title>
+    <link th:if="${canonical != null}" rel="canonical" th:href="${canonical}">
+    <meta property="og:site_name" content="elpsykongrood">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:type" th:content="${article != null ? 'article' : 'website'}">
+    <meta property="og:title" th:content="${title}">
+    <meta property="og:description" th:content="${description}">
+    <meta th:if="${canonical != null}" property="og:url" th:content="${canonical}">
+    <meta th:if="${article != null}" property="article:published_time" th:content="${article.date}">
+    <meta th:if="${article != null}" property="article:modified_time" th:content="${article.updatedAt}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" th:content="${title}">
+    <meta name="twitter:description" th:content="${description}">
+    <script th:if="${article != null}" type="application/ld+json" th:inline="javascript">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": [[${article.title}]],
+            "description": [[${description}]],
+            "datePublished": [[${article.date.toString()}]],
+            "dateModified": [[${article.updatedAt.toString()}]],
+            "mainEntityOfPage": [[${canonical}]],
+            "author": {
+                "@type": "Person",
+                "name": "elpsykongrood",
+                "url": "https://github.com/el-psy-kongroo-d"
+            }
+        }
+    </script>
     <link rel="stylesheet" th:href="@{/css/globals.css}">
     <link rel="stylesheet" th:href="@{/css/layout.css}">
     <link rel="stylesheet" th:href="@{/css/blog.css}">

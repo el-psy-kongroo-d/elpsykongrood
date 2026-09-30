@@ -18,6 +18,11 @@ public final class ArticlePayloads {
             long views
     ) {}
 
+    public record Location(
+            String slug,
+            Instant updatedAt
+    ) {}
+
     @Builder
     public record Detail(
             String slug,
