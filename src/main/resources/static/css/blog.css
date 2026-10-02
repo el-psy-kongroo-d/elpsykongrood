@@ -1,3 +1,60 @@
+.contributionLog {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+  min-width: 0;
+  margin-top: var(--space-7);
+  padding-block: 2px;
+  border-block: 1px solid var(--hairline);
+}
+.contributionLog + .footer { margin-top: 0; padding-top: var(--space-3); border-top: 0; }
+.contributionLabel {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font: 0.625rem/1.5 var(--font-mono);
+  letter-spacing: 0.015em;
+}
+.contributionViewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+}
+.contributionTrack { display: flex; width: max-content; animation: contributionFlow 34s linear infinite; }
+.contributionGroup { display: flex; align-items: center; gap: var(--space-5); padding-right: var(--space-5); }
+.contributionGroup a, .contributionGroup a:visited {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-height: 24px;
+  padding-block: 2px;
+  line-height: 1.5;
+  color: var(--text-soft);
+  font-size: var(--font-body);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.contributionArrow { color: var(--muted); font-size: 0.625rem; }
+.contributionGroup a:hover, .contributionGroup a:focus-visible, .contributionGroup a:hover .contributionArrow { color: var(--accent); }
+.contributionLog:hover .contributionTrack, .contributionLog:focus-within .contributionTrack, .contributionPauseInput:checked ~ .contributionViewport .contributionTrack { animation-play-state: paused; }
+.contributionPause { display: grid; place-items: center; flex: 0 0 24px; height: 24px; color: var(--muted); cursor: pointer; }
+.contributionPause:hover { color: var(--accent); }
+.contributionPlayIcon { display: none; }
+.contributionPauseInput:checked ~ .contributionPause .contributionPauseIcon { display: none; }
+.contributionPauseInput:checked ~ .contributionPause .contributionPlayIcon { display: block; }
+.contributionPauseInput:focus-visible ~ .contributionPause { outline: 2px solid var(--accent); outline-offset: 2px; }
+@keyframes contributionFlow { to { transform: translateX(-25%); } }
+@media (max-width: 540px) { .contributionLog { gap: var(--space-3); } .contributionLabel { font-size: 0.5625rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .contributionTrack { animation: none; width: auto; }
+  .contributionViewport { overflow: visible; mask-image: none; }
+  .contributionGroup { min-width: 0; padding: 0; gap: var(--space-3) var(--space-5); flex-wrap: wrap; justify-content: flex-start; }
+  .contributionGroup[aria-hidden="true"], .contributionPause { display: none; }
+  .contributionLog { align-items: baseline; }
+}
+
 .sectionHeading {
   display: flex;
   align-items: baseline;

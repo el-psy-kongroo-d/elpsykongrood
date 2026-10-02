@@ -6,6 +6,7 @@
     <a class="skip" href="#main" th:text="#{layout.skip}">본문으로 건너뛰기</a>
     <header th:replace="~{fragments/header :: header(${activePage})}"></header>
     <main id="main" class="main"><th:block th:replace="${content}"></th:block></main>
+    <th:block th:if="${activePage == 'home'}"><aside th:replace="~{pages/home :: contributionLog}"></aside></th:block>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
 </body>

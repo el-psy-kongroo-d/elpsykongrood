@@ -37,5 +37,5 @@ Java 17 · Spring Boot · Spring Data JPA · Spring Security · Supabase (Postgr
 
 ```sh
 ./mvnw clean package
-java -jar target/elpsykongrood-1.0.1.jar
+java -jar target/elpsykongrood-1.0.2.jar
 ```

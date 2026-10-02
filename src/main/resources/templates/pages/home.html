@@ -8,5 +8,22 @@
     <p th:if="${#lists.isEmpty(articles)}" class="empty" th:text="#{articles.empty}"></p>
     </section>
 </section>
+    <aside th:fragment="contributionLog" class="contributionLog" th:aria-label="#{home.contributions.label}">
+        <span class="contributionLabel" th:text="#{home.contributions.label}">Contribution log</span>
+        <input class="visuallyHidden contributionPauseInput" type="checkbox" id="contribution-pause" th:aria-label="#{home.contributions.pause}">
+        <div class="contributionViewport">
+            <div class="contributionTrack">
+                <div class="contributionGroup" th:each="copy : ${#numbers.sequence(0, 3)}" th:attr="aria-hidden=${copy > 0 ? 'true' : null}">
+                    <a href="https://github.com/netty/netty/pull/17192" th:attr="tabindex=${copy > 0 ? '-1' : null}"><span th:text="#{home.contributions.netty}">Netty</span><span class="contributionArrow" aria-hidden="true">↗</span></a>
+                    <a href="https://github.com/micronaut-projects/micronaut-core/pull/12837" th:attr="tabindex=${copy > 0 ? '-1' : null}"><span th:text="#{home.contributions.micronaut}">Micronaut</span><span class="contributionArrow" aria-hidden="true">↗</span></a>
+                    <a href="https://github.com/networknt/json-schema-validator/pull/1268" th:attr="tabindex=${copy > 0 ? '-1' : null}"><span th:text="#{home.contributions.jsonSchema}">JSON Schema Validator</span><span class="contributionArrow" aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </div>
+        <label class="contributionPause" for="contribution-pause" th:title="#{home.contributions.pause}">
+            <svg class="contributionPauseIcon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2v8M8 2v8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <svg class="contributionPlayIcon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 6 4-6 4Z" fill="currentColor"/></svg>
+        </label>
+    </aside>
 </body>
 </html>
